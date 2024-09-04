@@ -11,10 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HPML.h" />
+    <ClInclude Include="SRC\HPML.h" />
     <ClInclude Include="SRC\AABB.hpp" />
     <ClInclude Include="SRC\common.hpp" />
     <ClInclude Include="SRC\EAngle.hpp" />
+    <ClInclude Include="SRC\Matrix.h" />
     <ClInclude Include="SRC\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -22,6 +23,7 @@
     <ClCompile Include="SRC\dllmain.cpp" />
     <ClCompile Include="SRC\HPML.cpp" />
     <ClCompile Include="SRC\main.cpp" />
+    <ClCompile Include="SRC\Matrix.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6ed62bd7-09ac-4707-9569-63c1ef00453c}</ProjectGuid>

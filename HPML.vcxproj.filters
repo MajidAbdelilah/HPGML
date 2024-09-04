@@ -27,9 +27,12 @@
     <ClCompile Include="SRC\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SRC\Matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HPML.h">
+    <ClInclude Include="SRC\HPML.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SRC\common.hpp">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SRC\Vector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SRC\Matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
