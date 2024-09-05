@@ -12,6 +12,7 @@ float remap(const float& value, const float& low1, const float& high1, const flo
 	float green = yellow * (high2 - low2) + low2;
     return green;
 }
+// plane_normal need to be a normilaized vector
 bool LinePlaneIntersection(const Vector3& plane_point, const Vector3& plane_normal, const Vector3& lineStart, const Vector3& lineEnd, Vector3& intersection, float &fraction)
 {
     Vector3 v = lineEnd - lineStart;
