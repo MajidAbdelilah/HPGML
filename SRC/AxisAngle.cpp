@@ -1,5 +1,7 @@
 #include "AxisAngle.h"
 
+
+//axis need to be a normalized vector
 Vector3 RotateVectorAroundAxisAngle(const Vector3& v, const Vector3& axis, float angle)
 {
     float sinAngle = sin(angle);
