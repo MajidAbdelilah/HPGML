@@ -47,6 +47,10 @@ public:
     {
         return x * b.x + y * b.y;
     }
+    float operator[](int i) const
+    {
+        return (&x)[i];
+    }
     float x, y;
 };
 
@@ -107,6 +111,10 @@ class Vector3
     {
 		return v * (DotProduct(v) / v.LengthSqrt());
     }
+    float operator[](int i) const
+    {
+        return (&x)[i];
+    }
     float x, y, z;
 };
 
@@ -159,6 +167,10 @@ public:
     float DotProduct(const Vector4& b) const
     {
         return x * b.x + y * b.y + z * b.z + w * b.w;
+    }
+    float operator[](int i) const
+    {
+        return (&x)[i];
     }
     float x, y, z, w;
 };

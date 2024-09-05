@@ -151,5 +151,74 @@ public:
 		return Multiply(other);
 	}
 
+	Vector3 Multiply(const Vector3& other) const
+	{
+		return Vector3(
+			m[0 + 0 * 4] * other.x + m[0 + 1 * 4] * other.y + m[0 + 2 * 4] * other.z + m[0 + 3 * 4],
+			m[1 + 0 * 4] * other.x + m[1 + 1 * 4] * other.y + m[1 + 2 * 4] * other.z + m[1 + 3 * 4],
+			m[2 + 0 * 4] * other.x + m[2 + 1 * 4] * other.y + m[2 + 2 * 4] * other.z + m[2 + 3 * 4]
+		);
+	}
+
+	friend Vector3 operator*(const Matrix4x4& left, const Vector3& right)
+	{
+		return left.Multiply(right);
+	}
+
+	static Matrix4x4 ScaleInverse(const Matrix4x4& matrix)
+	{
+		Matrix4x4 result(1.0f);
+
+		result.m[0 + 0 * 4] = 1.0f / matrix.m[0 + 0 * 4];
+		result.m[1 + 1 * 4] = 1.0f / matrix.m[1 + 1 * 4];
+		result.m[2 + 2 * 4] = 1.0f / matrix.m[2 + 2 * 4];
+
+		return result;
+	}
+
+	static Matrix4x4 Transpose(const Matrix4x4& matrix)
+	{
+		Matrix4x4 result(1.0f);
+
+		for (int y = 0; y < 4; y++)
+		{
+			for (int x = 0; x < 4; x++)
+			{
+				result.m[x + y * 4] = matrix.m[y + x * 4];
+			}
+		}
+		return result;
+	}
+
+	static Matrix4x4 RotationInverse(const Matrix4x4 &matrix)
+	{
+		Matrix4x4 result(1.0f);
+
+		result.m[0 + 0 * 4] = matrix.m[0 + 0 * 4];
+		result.m[1 + 0 * 4] = matrix.m[0 + 1 * 4];
+		result.m[2 + 0 * 4] = matrix.m[0 + 2 * 4];
+
+		result.m[0 + 1 * 4] = matrix.m[1 + 0 * 4];
+		result.m[1 + 1 * 4] = matrix.m[1 + 1 * 4];
+		result.m[2 + 1 * 4] = matrix.m[1 + 2 * 4];
+
+		result.m[0 + 2 * 4] = matrix.m[2 + 0 * 4];
+		result.m[1 + 2 * 4] = matrix.m[2 + 1 * 4];
+		result.m[2 + 2 * 4] = matrix.m[2 + 2 * 4];
+
+		return result;
+	}
+
+	static Matrix4x4 TranslateInverse(const Matrix4x4 &matrix)
+	{
+		Matrix4x4 result(1.0f);
+
+		result.m[0 + 3 * 4] = -matrix.m[0 + 3 * 4];
+		result.m[1 + 3 * 4] = -matrix.m[1 + 3 * 4];
+		result.m[2 + 3 * 4] = -matrix.m[2 + 3 * 4];
+
+		return result;
+	}
+
 	float m[4 * 4];
 };
