@@ -7,14 +7,12 @@ class Quaternion
 public:
     Quaternion()
     {
-        w = x = y = z = 0;
+        w =0 ; v = Vector3(0, 0, 0);
     }
-    Quaternion(const float &W, const float &X, const float &Y, const float &Z)
+    Quaternion(const float &W, const Vector3& V)
     {
         w = W;
-        x = X;
-        y = Y;
-        z = Z;
+        v = V;
     }
     Quaternion(const Vector3& axis, const float &angle)
     {
@@ -22,15 +20,35 @@ public:
         float a = toRadians(angle);
         float s = std::sin(a / 2);
         w = std::cos(a / 2);
-        x = axis.x * s;
-        y = axis.y * s;
-        z = axis.z * s;
+        v = axis * s;
     }
 
     const Quaternion Inverted() const
     {
-        return Quaternion(w, -x, -y, -z);
+        return Quaternion(w, Vector3(-v.x, -v.y, -v.z));
     }
 
-    float w, x, y, z;
+    const Quaternion operator*(const Quaternion &q) const
+    {
+        Quaternion r;
+
+	    r.w = w*q.w - v.DotProduct(q.v);
+	    r.v = v*q.w + q.v*w + v.Cross(q.v);
+
+	    return r;
+    }
+    const Quaternion operator=(const Quaternion &q)
+    {
+        w = q.w;
+        v = q.v;
+        return *this;
+    }
+    const Vector3 operator*(const Vector3 &v) const
+    {
+        const Quaternion p(0, v);
+        const Quaternion q = *this;
+        return (q * p * q.Inverted()).v;   
+    }
+    float w;
+    Vector3 v;
 };
