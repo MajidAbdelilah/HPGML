@@ -150,6 +150,11 @@ public:
 	{
 		return Multiply(other);
 	}
+	Matrix4x4& operator=(const Matrix4x4& other)
+	{
+		memcpy(m, other.m, 4 * 4 * sizeof(float));
+		return *this;
+	}
 
 	Vector3 Multiply(const Vector3& other) const
 	{
@@ -165,18 +170,18 @@ public:
 		return left.Multiply(right);
 	}
 
-	static Matrix4x4 ScaleInverse(const Matrix4x4& matrix)
+	Matrix4x4 ScaleInverse() const
 	{
 		Matrix4x4 result(1.0f);
 
-		result.m[0 + 0 * 4] = 1.0f / matrix.m[0 + 0 * 4];
-		result.m[1 + 1 * 4] = 1.0f / matrix.m[1 + 1 * 4];
-		result.m[2 + 2 * 4] = 1.0f / matrix.m[2 + 2 * 4];
+		result.m[0 + 0 * 4] = 1.0f / m[0 + 0 * 4];
+		result.m[1 + 1 * 4] = 1.0f / m[1 + 1 * 4];
+		result.m[2 + 2 * 4] = 1.0f / m[2 + 2 * 4];
 
 		return result;
 	}
 
-	static Matrix4x4 Transpose(const Matrix4x4& matrix)
+	Matrix4x4 Transpose() const
 	{
 		Matrix4x4 result(1.0f);
 
@@ -184,41 +189,46 @@ public:
 		{
 			for (int x = 0; x < 4; x++)
 			{
-				result.m[x + y * 4] = matrix.m[y + x * 4];
+				result.m[x + y * 4] = m[y + x * 4];
 			}
 		}
 		return result;
 	}
 
-	static Matrix4x4 RotationInverse(const Matrix4x4 &matrix)
+	Matrix4x4 RotationInverse() const
 	{
 		Matrix4x4 result(1.0f);
 
-		result.m[0 + 0 * 4] = matrix.m[0 + 0 * 4];
-		result.m[1 + 0 * 4] = matrix.m[0 + 1 * 4];
-		result.m[2 + 0 * 4] = matrix.m[0 + 2 * 4];
+		result.m[0 + 0 * 4] = m[0 + 0 * 4];
+		result.m[1 + 0 * 4] = m[0 + 1 * 4];
+		result.m[2 + 0 * 4] = m[0 + 2 * 4];
 
-		result.m[0 + 1 * 4] = matrix.m[1 + 0 * 4];
-		result.m[1 + 1 * 4] = matrix.m[1 + 1 * 4];
-		result.m[2 + 1 * 4] = matrix.m[1 + 2 * 4];
+		result.m[0 + 1 * 4] = m[1 + 0 * 4];
+		result.m[1 + 1 * 4] = m[1 + 1 * 4];
+		result.m[2 + 1 * 4] = m[1 + 2 * 4];
 
-		result.m[0 + 2 * 4] = matrix.m[2 + 0 * 4];
-		result.m[1 + 2 * 4] = matrix.m[2 + 1 * 4];
-		result.m[2 + 2 * 4] = matrix.m[2 + 2 * 4];
+		result.m[0 + 2 * 4] = m[2 + 0 * 4];
+		result.m[1 + 2 * 4] = m[2 + 1 * 4];
+		result.m[2 + 2 * 4] = m[2 + 2 * 4];
 
 		return result;
 	}
 
-	static Matrix4x4 TranslateInverse(const Matrix4x4 &matrix)
+	Matrix4x4 TranslateInverse() const
 	{
 		Matrix4x4 result(1.0f);
 
-		result.m[0 + 3 * 4] = -matrix.m[0 + 3 * 4];
-		result.m[1 + 3 * 4] = -matrix.m[1 + 3 * 4];
-		result.m[2 + 3 * 4] = -matrix.m[2 + 3 * 4];
+		result.m[0 + 3 * 4] = -m[0 + 3 * 4];
+		result.m[1 + 3 * 4] = -m[1 + 3 * 4];
+		result.m[2 + 3 * 4] = -m[2 + 3 * 4];
 
 		return result;
 	}
 
+	Matrix4x4 TRInverse() const
+	{
+		return TranslateInverse() * RotationInverse();
+	}
+	
 	float m[4 * 4];
 };
