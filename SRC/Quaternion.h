@@ -1,6 +1,8 @@
 #include "Vector.hpp"
+#include <cassert>
 
 #define toRadians(x) x * 0.01745329251f
+#define toDegrees(x) x * 57.2957795131f
 
 class Quaternion
 {
@@ -49,6 +51,34 @@ public:
         const Quaternion q = *this;
         return (q * p * q.Inverted()).v;   
     }
+
+    void ToAxisAngle(Vector3 &axis, float &angle) const
+    {
+	    if (v.LengthSqrt() < 0.0001f)
+		    axis = Vector3(1, 0, 0);
+	    else
+		    axis = v.Normalize();
+
+	    assert(fabs(axis.LengthSqrt() - 1) < 0.000001f);
+        angle = acos(w)*2;
+
+	    angle = toDegrees(angle);
+    }
+
+    const Quaternion operator^(const float &t) const
+    {
+        Vector3 axis;
+        float angle;
+        ToAxisAngle(axis, angle);
+        return Quaternion(axis, angle * t);
+    }
+
+    const Quaternion Slerp(const Quaternion &other, const float &t) const
+    {
+        const Quaternion &q = *this;
+        return ( (other * q.Inverted()) ^ t ) * q;
+    }
+
     float w;
     Vector3 v;
 };
