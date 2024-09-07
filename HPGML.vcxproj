@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SRC\AxisAngle.h" />
-    <ClInclude Include="SRC\HPML.h" />
+    <ClInclude Include="SRC\HPGML.h" />
     <ClInclude Include="SRC\AABB.hpp" />
     <ClInclude Include="SRC\common.hpp" />
     <ClInclude Include="SRC\EAngle.hpp" />
@@ -24,9 +24,10 @@
     <ClCompile Include="SRC\AxisAngle.cpp" />
     <ClCompile Include="SRC\common.cpp" />
     <ClCompile Include="SRC\dllmain.cpp" />
-    <ClCompile Include="SRC\HPML.cpp" />
+    <ClCompile Include="SRC\HPGML.cpp" />
     <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="SRC\Matrix.cpp" />
+    <ClCompile Include="SRC\ParallelFunctions\Vector.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6ed62bd7-09ac-4707-9569-63c1ef00453c}</ProjectGuid>
@@ -42,7 +43,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>Intel(R) oneAPI DPC++ Compiler 2024</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
