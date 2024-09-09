@@ -14,6 +14,28 @@ public:
 			m[i] = 0.0f;
 	}
 
+	Matrix4x4(const Vector3 &forward, const Vector3 &up, const Vector3 &right, const Vector3 &translate)
+	{
+		m[0 + 0 * 4] = forward.x;
+		m[0 + 1 * 4] = forward.y;
+		m[0 + 2 * 4] = forward.z;
+		m[0 + 3 * 4] = 0.0f;
+
+		m[1 + 0 * 4] = up.x;
+		m[1 + 1 * 4] = up.y;
+		m[1 + 2 * 4] = up.z;
+		m[1 + 3 * 4] = 0.0f;
+
+		m[2 + 0 * 4] = right.x;
+		m[2 + 1 * 4] = right.y;
+		m[2 + 2 * 4] = right.z;
+		m[2 + 3 * 4] = 0.0f;
+
+		m[0 + 3 * 4] = translate.x;
+		m[1 + 3 * 4] = translate.y;
+		m[2 + 3 * 4] = translate.z;
+		m[3 + 3 * 4] = 1.0f;
+	}
 	Matrix4x4(float diagonal)
 	{
 		for (int i = 0; i < 4 * 4; i++)
@@ -29,6 +51,15 @@ public:
 	{
 		for (int i = 0; i < 4 * 4; i++)
 			m[i] = elements[i];
+	}
+
+	static Matrix4x4 LookAt(const Vector3& camera, const Vector3& object, const Vector3& up)
+	{
+		Vector3 forward = (object - camera).Normalize();
+		Vector3 right = up.Cross(forward).Normalize();
+		Vector3 newUp = forward.Cross(right);
+
+		return Matrix4x4(forward, newUp, right, camera);
 	}
 
 	static Matrix4x4 Orthographic(float left, float right, float bottom, float top, float near, float far)
