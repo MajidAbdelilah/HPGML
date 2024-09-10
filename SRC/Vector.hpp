@@ -85,6 +85,10 @@ class Vector3
     {
         return Vector3(x - s.x, y - s.y, z - s.z);
     }
+    Vector3 operator-() const
+    {
+        return Vector3(-x, -y, -z);
+    }
     Vector3 operator*(const float &s) const
     {
         return Vector3(x * s, y * s, z * s);
